@@ -3,313 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>路径中转器 | GitHub Pages</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>博客跳转中转页 | GitHub Pages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2969ff;
-            --primary-dark: #1a5af8;
-            --accent: #8b46ff;
-            --dark-bg: #0d1117;
-            --gray-800: #161b22;
-            --gray-700: #21262d;
-            --gray-500: #6e7681;
-            --gray-300: #b1bac4;
-            --light: #f0f6fc;
-            --success: #3fb950;
-            --warning: #d29922;
-            --error: #f85149;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #13161f 0%, var(--dark-bg) 100%);
+            background: linear-gradient(135deg, #1a1f25 0%, #0d1117 100%);
             min-height: 100vh;
-            padding: 20px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: var(--light);
-            overflow: hidden;
+            color: #f0f6fc;
+            padding: 20px;
             position: relative;
+            overflow: hidden;
         }
         
-        .particles {
+        .background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(41, 105, 255, 0.15) 0%, transparent 15%),
-                radial-gradient(circle at 90% 30%, rgba(139, 70, 255, 0.15) 0%, transparent 15%);
-            pointer-events: none;
+                radial-gradient(circle at 15% 50%, rgba(41, 105, 255, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(121, 40, 202, 0.1), transparent 25%);
+            z-index: -1;
         }
         
         .container {
-            background: rgba(22, 27, 34, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(12px);
             border-radius: 16px;
             padding: 40px;
+            max-width: 600px;
             width: 90%;
-            max-width: 850px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(240, 246, 252, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
         
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, rgba(41, 105, 255, 0.1) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        
         .header {
-            margin-bottom: 35px;
-            text-align: center;
+            margin-bottom: 30px;
         }
         
-        .logo {
-            font-size: 3.8rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        h1 {
+        .header h1 {
             font-size: 2.5rem;
-            font-weight: 700;
             background: linear-gradient(to right, #58a6ff, #8a63d2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
+            font-weight: 700;
         }
         
-        .subtitle {
+        .header p {
             font-size: 1.1rem;
-            color: var(--gray-300);
-            max-width: 600px;
+            color: #c9d1d9;
+            line-height: 1.6;
+            max-width: 80%;
             margin: 0 auto;
-            line-height: 1.7;
         }
         
-        .url-pathway {
-            background: rgba(13, 17, 23, 0.5);
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .redirect-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(33, 38, 45, 0.7);
+            border: 1px solid rgba(240, 246, 252, 0.1);
             border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            border: 1px solid rgba(88, 166, 255, 0.2);
-            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3);
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
             position: relative;
             overflow: hidden;
         }
         
-        .path-steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
+        .redirect-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(88, 166, 255, 0.3);
+            background: rgba(48, 54, 61, 0.85);
+            border-color: rgba(88, 166, 255, 0.3);
         }
         
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            min-width: 80px;
-            text-align: center;
+        .redirect-button i {
+            font-size: 1.8rem;
+            margin-right: 20px;
+            color: #58a6ff;
         }
         
-        .step-icon {
-            background: rgba(88, 166, 255, 0.2);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 1.5rem;
-            color: var(--primary);
-            position: relative;
-            z-index: 2;
-            border: 2px solid rgba(88, 166, 255, 0.3);
-        }
-        
-        .step-label {
-            font-size: 0.9rem;
-            background: rgba(88, 166, 255, 0.1);
-            border-radius: 20px;
-            padding: 5px 15px;
-            font-weight: 500;
-        }
-        
-        .step-detail {
-            font-size: 0.85rem;
-            color: var(--gray-300);
-            max-width: 120px;
-            word-break: break-all;
-            margin-top: 5px;
-        }
-        
-        .divider {
-            width: 40px;
-            height: 4px;
-            background: rgba(88, 166, 255, 0.3);
-            border-radius: 4px;
-            position: relative;
-        }
-        
-        .divider::before, .divider::after {
-            content: ">";
-            position: absolute;
-            top: -12px;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.3rem;
-            right: -20px;
-        }
-        
-        .divider::after {
-            content: ">";
-            transform: translateX(35px);
-        }
-        
-        .step-url {
-            display: block;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--gray-500);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .redirect-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .info-box {
-            background: rgba(33, 38, 45, 0.7);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-top: 2px solid var(--primary);
-            position: relative;
-        }
-        
-        .info-box h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--primary);
-        }
-        
-        .info-box ul {
-            list-style-type: none;
-        }
-        
-        .info-box li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-            font-size: 0.95rem;
-        }
-        
-        .info-box li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-        }
-        
-        .redirect-preview {
-            background: rgba(13, 17, 23, 0.6);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .url-preview {
-            font-family: 'Courier New', monospace;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            color: var(--light);
-            overflow-x: auto;
-            white-space: nowrap;
-            position: relative;
+        .link-info {
+            flex: 1;
             text-align: left;
         }
         
-        .url-parts {
-            display: inline-flex;
-            flex-wrap: wrap;
-            gap: 3px;
-            justify-content: center;
+        .link-info h3 {
+            font-size: 1.4rem;
+            color: #f0f6fc;
+            margin-bottom: 5px;
+            font-weight: 600;
         }
         
-        .url-domain {
-            color: var(--primary);
+        .link-info p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            word-break: break-all;
         }
         
-        .url-path {
-            color: var(--accent);
+        .redirect-arrow {
+            font-size: 1.5rem;
+            color: #c9d1d9;
+            transition: transform 0.3s ease;
         }
         
-        .url-path-segment {
-            color: var(--success);
+        .redirect-button:hover .redirect-arrow {
+            transform: translateX(5px);
         }
         
-        .countdown-container {
-            text-align: center;
+        .auto-redirect {
+            background: rgba(13, 17, 23, 0.5);
+            border-radius: 10px;
             padding: 20px;
-            margin: 25px 0;
+            margin-top: 20px;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+        
+        .auto-redirect p {
+            color: #8b949e;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
         }
         
         .countdown {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
             background: rgba(88, 166, 255, 0.15);
-            padding: 12px 30px;
+            padding: 5px 12px;
             border-radius: 30px;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
         }
         
         .countdown-number {
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--primary);
-            min-width: 35px;
-            display: inline-block;
+            font-weight: 700;
+            color: #58a6ff;
+            margin: 0 3px;
         }
         
+        .github-logo {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            color: rgba(240, 246, 252, 0.3);
+            font-size: 1.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .github-logo:hover {
+            color: rgba(88, 166, 255, 0.8);
+        }
+        
+        /* Spinner animation */
         .spinner {
             display: inline-block;
             width: 20px;
@@ -317,8 +186,8 @@
             margin-right: 10px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
+            border-top-color: #58a6ff;
+            animation: spin 1s ease-in-out infinite;
             vertical-align: middle;
         }
         
@@ -326,323 +195,148 @@
             to { transform: rotate(360deg); }
         }
         
-        .status-bar {
-            display: flex;
-            justify-content: center;
+        .note {
+            font-size: 0.85rem;
+            color: #8b949e;
             margin-top: 30px;
-            gap: 15px;
-            flex-wrap: wrap;
+            line-height: 1.6;
         }
         
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            color: var(--gray-500);
-        }
-        
-        .status-icon {
-            font-size: 0.8rem;
-            color: var(--success);
-        }
-        
-        .redirect-manual {
-            text-align: center;
-            margin-top: 25px;
-        }
-        
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 20px rgba(43, 143, 255, 0.4);
-            text-decoration: none;
-        }
-        
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(43, 143, 255, 0.5);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--gray-700);
-            color: var(--gray-300);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--light);
-        }
-        
-        .footer {
-            margin-top: 35px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--gray-500);
-            padding-top: 20px;
-            border-top: 1px solid rgba(240, 246, 252, 0.1);
-        }
-        
-        @media (max-width: 768px) {
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
+                width: 95%;
             }
             
-            h1 {
+            .header h1 {
                 font-size: 2rem;
             }
             
-            .subtitle {
+            .header p {
                 font-size: 1rem;
+                max-width: 100%;
             }
             
-            .path-steps {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
+            .redirect-button {
+                padding: 15px 20px;
             }
             
-            .divider {
-                width: 4px;
-                height: 30px;
+            .redirect-button i {
+                font-size: 1.5rem;
+                margin-right: 15px;
             }
             
-            .divider::before, .divider::after {
-                transform: rotate(90deg);
-                top: auto;
-                bottom: -22px;
-                right: auto;
-            }
-            
-            .divider::after {
-                display: none;
-            }
-            
-            .redirect-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .countdown-number {
-                font-size: 1.4rem;
+            .link-info h3 {
+                font-size: 1.2rem;
             }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.7rem;
+            .header h1 {
+                font-size: 1.8rem;
             }
             
-            .logo {
-                font-size: 3rem;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .status-bar {
-                flex-direction: column;
-                align-items: center;
+            .link-info h3 {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="particles"></div>
+    <div class="background"></div>
     
     <div class="container">
         <div class="header">
-            <div class="logo">
-                <i class="fas fa-route"></i>
-            </div>
-            <h1>GitHub Pages 路径中转器</h1>
-            <p class="subtitle">该服务会将访问路径<span id="repoName">/repo</span>/&lt;target-path&gt; 自动重定向到目标URL路径</p>
+            <h1>博客中转导航</h1>
+            <p>此页面用于安全重定向到目标站点。请从以下选项中选择您要访问的链接。</p>
         </div>
         
-        <div class="url-pathway">
-            <div class="path-steps">
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-cloud-arrow-down"></i>
-                    </div>
-                    <div class="step-label">原始地址</div>
-                    <div class="step-detail" id="originalUrl">
-                        loading...
-                    </div>
+        <div class="links-container">
+            <a href="https://satori5ama.hidict.cn/" class="redirect-button" id="github-link">
+                <i class="fab fa-github"></i>
+                <div class="link-info">
+                    <h3>幻想安全区</h3>
+                    <p>https://satori5ama.hidict.cn/</p>
                 </div>
-                
-                <div class="divider"></div>
-                
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="step-label">转换</div>
-                    <div class="step-detail">路径提取</div>
+                <div class="redirect-arrow">
+                    <i class="fas fa-arrow-right"></i>
                 </div>
-                
-                <div class="divider"></div>
-                
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-cloud-arrow-up"></i>
-                    </div>
-                    <div class="step-label">目标地址</div>
-                    <div class="step-detail" id="targetUrl">
-                        loading...
-                    </div>
-                </div>
-            </div>
+            </a>
             
-            <div class="redirect-preview">
-                <div class="url-preview">
-                    <span class="url-parts">
-                        <span class="url-domain">https://github-user.github.io</span>
-                        <span>/<span id="previewRepo">repo</span></span>
-                        <span class="url-path" id="previewPath">/example/path</span>
-                    </span>
-                    <span> → </span>
-                    <span class="url-parts">
-                        <span class="url-domain">https://newdomain.com</span>
-                        <span class="url-path" id="previewRedirectPath">/example/path</span>
-                    </span>
+            <a href="https://pages.github.com" class="redirect-button" id="gh-pages-link">
+                <i class="fas fa-file-code"></i>
+                <div class="link-info">
+                    <h3>GitHub Pages</h3>
+                    <p>https://pages.github.com</p>
                 </div>
-            </div>
-        </div>
-        
-        <div class="redirect-info">
-            <div class="info-box">
-                <h3><i class="fas fa-info-circle"></i> 功能说明</h3>
-                <ul>
-                    <li>保留原始URL的完整路径结构</li>
-                    <li>正确处理查询参数和URL片段</li>
-                    <li>无缝自动跳转，无需用户操作</li>
-                    <li>支持复杂路径和嵌套目录结构</li>
-                    <li>保持完整的浏览器历史记录</li>
-                </ul>
-            </div>
+                <div class="redirect-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
             
-            <div class="info-box">
-                <h3><i class="fas fa-lightbulb"></i> 使用场景</h3>
-                <ul>
-                    <li>迁移网站到新域名</li>
-                    <li>GitHub Pages自定义域重定向</li>
-                    <li>项目文档URL结构重定向</li>
-                    <li>路径路由代理服务</li>
-                    <li>新旧版本API路径转换</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="countdown-container">
-            <div class="countdown">
-                <span class="spinner"></span>
-                系统将在 <span class="countdown-number">5</span> 秒后自动重定向到目标路径
-            </div>
-            <p id="manual-redirect-text">点击任意位置取消自动跳转</p>
-        </div>
-        
-        <div class="status-bar">
-            <div class="status-item">
-                <i class="fas fa-circle-check status-icon"></i>
-                <span>路径转换完成</span>
-            </div>
-            <div class="status-item">
-                <i class="fas fa-circle-check status-icon"></i>
-                <span>目标域名验证通过</span>
-            </div>
-            <div class="status-item">
-                <i class="fas fa-circle-check status-icon"></i>
-                <span>重定向准备就绪</span>
-            </div>
-        </div>
-        
-        <div class="redirect-manual">
-            <a href="#" id="redirectBtn" class="btn">
-                <i class="fas fa-rocket"></i>立即跳转到目标页面
+            <a href="https://docs.github.com/en/pages" class="redirect-button" id="docs-link">
+                <i class="fas fa-book"></i>
+                <div class="link-info">
+                    <h3>文档中心</h3>
+                    <p>https://docs.github.com/en/pages</p>
+                </div>
+                <div class="redirect-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
             </a>
         </div>
         
-        <div class="footer">
-            <p>GitHub Pages 路径中转服务 | 部署在您的仓库中</p>
-            <p>此页面将在5秒后自动关闭并重定向到目标页面</p>
+        <div class="auto-redirect">
+            <p>系统将在 <span class="countdown"><span class="spinner"></span> <span class="countdown-number" id="countdown">5</span> 秒</span> 后自动跳转到第一个链接</p>
+            <p id="manual-redirect-text">点击屏幕任意处取消自动跳转</p>
         </div>
+        
+        
+        <a href="https://github.com" class="github-logo">
+            <i class="fab fa-github"></i>
+        </a>
     </div>
-    
+
     <script>
-        // 主重定向逻辑
         document.addEventListener('DOMContentLoaded', function() {
-            // 设置新域名（在此处修改为您实际的目标域名）
-            const newDomain = "https://newdomain.com";
-            
-            // 获取原始URL的完整路径
-            const path = window.location.pathname;
-            
-            // 从URL路径中提取仓库名（第一段路径）
-            const segments = path.split('/');
-            const repoName = segments[1] || 'repo';
-            
-            // 获取仓库名后面的完整路径（包括查询参数和片段标识）
-            const targetPath = path.split('/').slice(2).join('/') || '/';
-            const query = window.location.search;
-            const hash = window.location.hash;
-            
-            // 构建目标URL
-            const redirectUrl = `${newDomain}/${targetPath}${query}${hash}`;
-            
-            // 更新UI元素显示当前信息
-            document.getElementById('originalUrl').textContent = window.location.host + path;
-            document.getElementById('targetUrl').textContent = redirectUrl.split('/')[2] + '/' + targetPath;
-            document.getElementById('previewRepo').textContent = repoName;
-            document.getElementById('previewPath').textContent = `/${targetPath}`;
-            document.getElementById('previewRedirectPath').textContent = `/${targetPath}`;
-            document.getElementById('repoName').textContent = `/${repoName}`;
-            
-            // 设置倒计时跳转
+            // Set up countdown timer
             let countdown = 5;
-            const countdownNumber = document.querySelector('.countdown-number');
+            const countdownElement = document.getElementById('countdown');
+            const manualRedirectText = document.getElementById('manual-redirect-text');
             const spinner = document.querySelector('.spinner');
-            const manualText = document.getElementById('manual-redirect-text');
             
             const countdownInterval = setInterval(() => {
                 countdown--;
-                countdownNumber.textContent = countdown;
+                countdownElement.textContent = countdown;
                 
                 if (countdown <= 0) {
                     clearInterval(countdownInterval);
-                    window.location.replace(redirectUrl);
+                    window.location.href = 'https://satori5ama.hidict.cn/';
                 }
             }, 1000);
             
-            // 立即跳转按钮
-            document.getElementById('redirectBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.replace(redirectUrl);
+            // Cancel automatic redirect on click anywhere
+            document.body.addEventListener('click', function(e) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = '0';
+                spinner.style.display = 'none';
+                manualRedirectText.innerHTML = '自动跳转已取消，请手动选择链接';
+                manualRedirectText.style.color = '#ff7b72';
             });
             
-            // 点击任意位置取消自动跳转
-            document.addEventListener('click', function() {
-                clearInterval(countdownInterval);
-                spinner.style.display = 'none';
-                manualText.innerHTML = '<i class="fas fa-ban"></i> 自动跳转已取消 - 请手动点击上方按钮跳转';
-                countdownNumber.textContent = '0';
+            // Smooth hover effects
+            const buttons = document.querySelectorAll('.redirect-button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 8px 25px rgba(88, 166, 255, 0.3)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
             });
         });
     </script>
